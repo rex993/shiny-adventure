@@ -1,0 +1,33 @@
+repos:
+  # 1) Standard linters + size check
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ["--maxkb=100"]
+  # 2) Secret scanning
+  - repo: https://github.com/zricethezav/gitleaks-pre-commit
+    rev: v1.4.0
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+    -   id: isort
+        name: isort (python)
+        args: [--profile=black, --line-length=120]
+    - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+    -   id: black
+        language_version: python3.11
+        args: [--line-length=120]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.6
+    hooks:
+    -   id: ruff
+        # Fix issues but skip import-sorting rules (I) to avoid conflicts with isort
+        args: [--fix, --ignore=I]
