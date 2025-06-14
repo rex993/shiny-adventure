@@ -33,3 +33,8 @@ repos:
     -   id: ruff
         # Fix issues but skip import-sorting rules (I) to avoid conflicts with isort
         args: [--fix, --ignore=I]
+-   repo: https://github.com/thoughtworks/talisman
+    rev: v1.37.0
+    hooks:
+      - id: talisman-commit
+        stages: [pre-push]
